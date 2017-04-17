@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'MyriadPro-Regular';
+    src: url('/client/fonts/Myriad Pro Regular.ttf')
+}
+
+#nav {
+    float:left;
+}
+
+.tab {
+    display: block;
+}
+
+.svg-tab {
+    width: 100%;
+}

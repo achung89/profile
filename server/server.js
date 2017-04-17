@@ -1,13 +1,14 @@
 var express = require('express');
 var routes = require('./routes/routes.js');
+var path = require('path');
 var app = express();
 var route = express.Router();
 
+app.use(express.static(path.join(__dirname, "../")));
 app.use('/api', routes(route));
 
-
-app.get('*', function ( req, res ) {
-  res.sendFile(path.join(__dirname, "../../client/index.html"))
+app.get('/', function ( req, res ) {
+  res.sendFile(path.join(__dirname, "../client/index.html"))
 })
 
 app.listen(3000,function(err) {
