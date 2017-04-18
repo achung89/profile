@@ -1,7 +1,7 @@
 angular.module('pane',['ngRoute'])
   .config ( function( $routeProvider ) {
     $routeProvider.when('/',{
-      template: '<main-frame><home-pane></home-pane></main-frame>'
+      template: '<main-frame><projects-pane></projects-pane></main-frame>'
     })
   })
     
