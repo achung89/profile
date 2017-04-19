@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'MyriadPro-Regular';
+    src: url('/client/fonts/Myriad Pro Regular.ttf')
+}
+
+.project {
+  font-family: 'MyriadPro-Regular';
+}
+.project-name {
+  display:inline-block;
+}
+.project-links {
+  display:inline-block;
+}

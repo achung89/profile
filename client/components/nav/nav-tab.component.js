@@ -1,20 +1,28 @@
 angular
   .module('nav')
     .component('navTab', {
-      templateUrl:'client/components/nav/nav-tab.html',
+      templateUrl:'files/nav/nav-tab.html',
       controllerAs:'tab',
-      templateNamespace: 'svg',
-      controller: function ( $attrs, navState, $element ) {
-        this.pageName = $attrs.pageName;
+      controller: function ( $attrs, navState, $location ) {
+        this.$postLink = function() {
+          this.pageName = $attrs.pageName;
+          console.log($attrs.path);
+          this.path = $attrs.path;  
+        }
         this.changeView = function ( page ) {
-          // $element.('what');
-          navState.push(page);
-          console.log('hihi');
-          // $attrs.pageName="whaaa";
+          $location.path(page);
         }
       }
     })
     .factory('navState',function(){
       return [];
+    })
+    .controller('NavController', function() {
+      this.tabs = [
+        ['Portfolio',''],
+        ['Blog', 'blog'],
+        ['Snippets','snippets'],
+        ['About me', 'aboutme']
+      ]
     })
 

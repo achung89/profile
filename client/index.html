@@ -6,28 +6,25 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="bower_components/angular/angular.js"></script>
   <script src="node_modules/angular-route/angular-route.js"></script>
-  <script src="client/index.js"></script>
-  <link rel="stylesheet" href="client/components/nav/nav.css">
-  <script src="client/components/nav/nav-tab.component.js"></script>
-  <script src="client/components/pane/route/pane.route.js"></script>
-  <script src="client/components/pane/projects/projects.component.js"></script>
-  
-  <link rel="stylesheet" href="client/components/pane/frame/main.css">
-  <script src="client/components/pane/frame/main.component.js"></script>
+  <script src="files/index.js"></script>
+  <link rel="stylesheet" href="files/nav/nav.css">
+  <script src="files/nav/nav-tab.component.js"></script>
+  <script src="files/pane/route/pane.route.js"></script>
+  <link rel="stylesheet" href="files/pane/projects/projects.css">
+  <script src="files/pane/projects/projects.component.js"></script>
+  <script src="files/pane/blog/blog.component.js"></script>
+  <link rel="stylesheet" href="files/pane/frame/main.css">
+  <script src="files/pane/frame/main.component.js"></script>
   <title>Andrew Chung</title>
 </head>
+
 <body ng-app="profilePage">
   <banner></banner>
-  <div id="nav">
-    <nav-tab class="tab" page-name="Projects">
-    </nav-tab>
-    <nav-tab class="tab" page-name="Blog">
-    </nav-tab>
-    <nav-tab class="tab" page-name="Snippets">
-    </nav-tab>
-    <nav-tab class="tab" page-name="About me">
+  <div id="nav" ng-controller="NavController as parent">
+    <nav-tab  class="tabs" path="{{tabData[1]}}" page-name="{{tabData[0]}}" ng-repeat="tabData in parent.tabs" >
     </nav-tab>
   </div>
   <div ng-view></div>
 </body>
+
 </html>

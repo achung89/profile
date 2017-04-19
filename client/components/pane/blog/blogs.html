@@ -1,0 +1,3 @@
+<div ng-repeat="blog in blogs.blogPosts | orderBy: '-createdAt'">
+  {{blog.createdAt}} {{blog.title}} {{blog.preview}}
+</div>

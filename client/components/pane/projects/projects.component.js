@@ -2,7 +2,7 @@ angular
   .module('pane')
     .component('projectsPane', {
       controllerAs: 'projPane',
-      templateUrl:'client/components/pane/projects/projects.html',
+      templateUrl:'files/pane/projects/projects.html',
       controller: function() {
         this.projects = [
           {
@@ -12,13 +12,14 @@ angular
               ['website', 'http://www.planEats.xyz'],
             ],
             description: 'Meal planning application with a recipe book, automated grocerylist, and cooking instructions for your next meal',
-            contributions:['Fast single page application interface (React, Webpack)', 
+            contributions:[
+                        'Fast single page application interface (React, Webpack)', 
                        'Responsive web-design (media queries, Bootstrap)', 
                        'Authentication/authorization (Auth0 lock, React router 4)',
                        'Real time data/UI (PostgreSQL, Sequelize)',
                        'Robust back-end testing environment (Mocha, Chai)',
                        'Google Calendar integration',
-                       'Efficient deployment setup (Docker)'
+                       'Deployment setup (Docker)'
             ]
           },
           {
@@ -27,9 +28,10 @@ angular
               ['github', 'https://github.com/achung89/spar-component'],
             ],
             description:'Declarative SPA custom elements made with WebComponents technology',
-            contributions:['Non-blocking synchronous content loading and caching of routes',
-                        'Rigorous testing environment (WCT, Mocha, Chai)'
-                        ]
+            contributions: [
+                        'Non-blocking synchronous content loading and caching of routes',
+                        'Route-test environment (WCT, Mocha, Chai)'
+            ]
           },
           {
             name:'Dino Task',
@@ -38,9 +40,20 @@ angular
               ['website','']
             ],
             description:'Online to-do list application',
-            contributions:['Authentication/authorization (bcrypt-node, express-sessions, react router)',
+            contributions: [
+                        'Authentication/authorization (bcrypt-node, express-sessions, react router)',
                         'Sleek login page design',
-                        'Drag and drop feature for individual routines']
+                        'Drag and drop feature for individual routines'
+            ]
+          },
+          {
+            name:'assignEs6Class',
+            link:[
+              ['github', 'https://github.com/achung89/assignEs6Class'],
+              ['NPM', 'https://www.npmjs.com/package/assign-es6-class']
+            ],
+            description:'Library for shallow merging Es6 classes',
+            contributions:[]
           },
           {
             name: 'KeepFit',
@@ -57,23 +70,26 @@ angular
       require: {
         parent:'^projectsPane'
       },
-      template: `<div>
-                  <div class="project-header">
-                    <div class="project-name">{{project.name}}</div>
-                    <div class="project-links" ng-repeat="link in project.link"><a href="{{link[1]}}">{{link[0]}}</a></div>
-                  </div>
-                  <div class="project-description">{{project.description}}</div>
-                  <ol class="project-contributions" >
-                    <li ng-repeat="contrib in project.contributions">{{contrib}}</li>
-                  </ol>
-                </div>`,
+      template: `<div class="project">
+                   <div class="project-header">
+                     <h1 class="project-name">{{project.name}}</h1>
+                     <div class="project-links" ng-repeat="link in project.link">
+                       <a href="{{link[1]}}">{{link[0]}}</a>&nbsp;&nbsp;
+                     </div>
+                   </div>
+                   <p>
+                    <div class="project-description">{{project.description}}</div>
+                    <ol class="project-contributions">
+                      <li ng-repeat="contrib in project.contributions">{{contrib}}</li>
+                    </ol>
+                   </p>
+                 </div>`,
       controllerAs:'project',
       controller: function($attrs) {
         this.$postLink = function() {
           console.log(this.parent.projects)
           console.log($attrs.id, this.parent.projects[$attrs.id]);
           ['name','link','description','contributions'].forEach( ( key ) => {
-          
             this[key] = this.parent.projects[+$attrs.id][key];
           })
         }  
