@@ -1,3 +1,11 @@
-<div ng-repeat="blog in blogs.blogPosts | orderBy: '-createdAt'">
-  {{blog.createdAt}} {{blog.title}} {{blog.preview}}
+<div class="blogs">
+  <h1>{{blogs.description}}</h1>
+  <h1 loading>Loading...</h1>
+  <div ng-repeat="year in blogs.years">
+    <h2 class="year"> {{year}} </h2>
+    <div ng-repeat="blog in blogs.blogPosts | filter:{created:{year:year}}">
+      <a href="{{blog.url}}">{{blog.title}}</a>
+    </div>
+  </div>
+
 </div>

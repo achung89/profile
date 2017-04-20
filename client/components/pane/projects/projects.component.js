@@ -2,9 +2,66 @@ angular
   .module('pane')
     .component('projectsPane', {
       controllerAs: 'projPane',
-      templateUrl:'files/pane/projects/projects.html',
-      controller: function() {
-        this.projects = [
+      templateUrl:'pane/projects/projects.html',
+      controller: function( Projects ) {
+        this.width = 232.5;
+        //less
+        this.height = 64;
+        this.heightShadow = 66.5;
+        //less
+        this.widthShadow = 230;
+        this.heightMargin = 10;
+        this.projects = Projects;
+      }
+    })
+    .component('project',{
+      require: {
+        parent:'^projectsPane'
+      },
+      template: `<div class="project">
+                   <div class="project-header">
+                     <h1 class="project-name">{{project.name}}</h1>
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <div class="project-links" ng-repeat="link in project.link">
+                       <a href="{{link[1]}}">{{link[0]}}</a>&nbsp;&nbsp;&nbsp;
+                     </div>
+                   </div>
+                   <p>
+                    <div class="project-description">{{project.description}}</div>
+                    <ol class="project-contributions">
+                      <li ng-repeat="contrib in project.contributions">{{contrib}}</li>
+                    </ol>
+                   </p>
+                 </div>`,
+      controllerAs:'project',
+      controller: function($attrs) {
+        this.$postLink = function() {
+          console.log(this.parent.projects)
+          console.log($attrs.id, this.parent.projects[$attrs.id]);
+          ['name','link','description','contributions'].forEach( ( key ) => {
+            this[key] = this.parent.projects[+$attrs.id][key];
+          })
+        }  
+      }
+    })
+    .directive('ngViewbox', function() {
+        return {
+          link: function(scope, elem, attrs) {
+            attrs.$observe('ngViewbox', function(x) {
+                elem.attr('viewBox', x);
+            });
+          }
+        }
+    })
+    .directive('ngPoints', function() {
+        return function(scope, elem, attrs) {
+            attrs.$observe('ngPoints', function(y) {
+                elem.attr('points', y);
+            });
+        };
+    })
+    .factory('Projects', function(){
+      return [
           {
             name: 'PlanEats',
             link: [
@@ -64,34 +121,4 @@ angular
             description:'Fitness logging application'
           }
         ]
-      }
-    })
-    .component('project',{
-      require: {
-        parent:'^projectsPane'
-      },
-      template: `<div class="project">
-                   <div class="project-header">
-                     <h1 class="project-name">{{project.name}}</h1>
-                     <div class="project-links" ng-repeat="link in project.link">
-                       <a href="{{link[1]}}">{{link[0]}}</a>&nbsp;&nbsp;
-                     </div>
-                   </div>
-                   <p>
-                    <div class="project-description">{{project.description}}</div>
-                    <ol class="project-contributions">
-                      <li ng-repeat="contrib in project.contributions">{{contrib}}</li>
-                    </ol>
-                   </p>
-                 </div>`,
-      controllerAs:'project',
-      controller: function($attrs) {
-        this.$postLink = function() {
-          console.log(this.parent.projects)
-          console.log($attrs.id, this.parent.projects[$attrs.id]);
-          ['name','link','description','contributions'].forEach( ( key ) => {
-            this[key] = this.parent.projects[+$attrs.id][key];
-          })
-        }  
-      }
     })

@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'MyriadPro-Regular';
+    src: url('/client/fonts/Myriad Pro Regular.ttf')
+}
+a {
+  color:black;
+}
+
+.blogs {
+  font-family: 'MyriadPro-Regular';
+}

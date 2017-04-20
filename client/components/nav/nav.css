@@ -2,15 +2,18 @@
     font-family: 'MyriadPro-Regular';
     src: url('/client/fonts/Myriad Pro Regular.ttf')
 }
-
+a {
+    color:black;
+}
 #nav {
     float:left;
+    width:25%;
 }
 
 .tabs {
-    display: block;
+    margin-top:10px;
 }
 
 .svg-tab {
-    width: 100%;
+    width:100%;
 }

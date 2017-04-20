@@ -6,6 +6,7 @@ var route = express.Router();
 
 app.use('/api', routes(route));
 app.use('/files', express.static(path.join(__dirname,'../client/components')))
+app.use('/pane', express.static(path.join(__dirname, '../client/components/pane')))
 app.use(express.static(path.join(__dirname,"../")))
 app.get('/', function ( req, res ) {
   res.sendFile(path.join(__dirname, "../client/index.html"))
