@@ -7,6 +7,8 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="node_modules/angular-route/angular-route.js"></script>
   <script src="files/index.js"></script>
+  <link rel="stylesheet" href="files/normalize.css">
+  <link rel="stylesheet" href="files/index.css">
   <link rel="stylesheet" href="files/nav/nav.css">
   <script src="files/nav/nav-tab.component.js"></script>
   <script src="pane/route/pane.route.js"></script>
@@ -20,16 +22,46 @@
   <script src="pane/frame/main.component.js"></script>
   <link rel="stylesheet" href="pane/about-me/about-me.css">
   <script src="pane/about-me/about-me.component.js"></script>
+
   <title>Andrew Chung</title>
+  
 </head>
 
-<body ng-app="profilePage">
-  <banner></banner>
-  <div id="nav" ng-controller="NavController as parent">
-    <nav-tab  class="tabs" path="{{tabData[1]}}" page-name="{{tabData[0]}}" ng-repeat="tabData in parent.tabs" >
-    </nav-tab>
+<body ng-app="profilePage" style="display:none;">
+  <div id="center-group">
+    <div id="nav" ng-controller="NavController as parent">
+      <nav-tab  class="tabs" path="{{tabData[1]}}" page-name="{{tabData[0]}}" coords="{{tabData[2]}}" ng-repeat="tabData in parent.tabs" >
+      </nav-tab>
+        <svg width="0"; height="0" id="img-defs">
+          <defs>
+            <style type="text/css">
+              @media screen and (max-width: 960px) {
+                #img-mask {
+                  rx:50;
+                  ry:60;
+                  cy:50;
+                  cx:50;
+                }
+              }
+            </style>
+          </defs>
+
+          <defs>
+            <clipPath id="clipping">
+              <ellipse id="img-mask" cx="110" cy="125" rx="100" ry="100" />
+            </clipPath>
+          </defs>
+        </svg>
+          <img src="files/pic.png"/>
+    </div>
+
+    <div ng-view></div>
   </div>
-  <div ng-view></div>
 </body>
 
+  <script>
+    window.addEventListener('load', function() {
+      document.body.style = '';
+    })
+    </script>
 </html>

@@ -1,11 +1,25 @@
-div[ng-view] {
-    float:right;
-    width:74%;
+/*div[ng-view] {
+    width:75%;
+}*/
 
-}
-main-frame {
-
-}
 .svg-frame {
+    width:699.98px;
+    height:1000px;
+}
+#svg-inner-frame {
+    height: 1vh;
+}
+/*#img-defs {
+
     width:100%;
+}*/
+
+@media screen and (max-width:960px) {
+    .svg-frame {
+        width:100%;
+        height:1000px;
+    }
+    /*#img-defs {
+        position:absolute;
+    }*/
 }

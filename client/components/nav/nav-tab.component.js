@@ -11,10 +11,14 @@ angular
           this.heightShadow = 66.5;
           //less
           this.widthShadow = 230;
+
         }
         this.$postLink = function() {
           this.pageName = $attrs.pageName;
-          this.path = $attrs.path;  
+          this.path = $attrs.path;
+          var coords = JSON.parse($attrs.coords);
+          this.nameX = coords[0];
+          this.nameY = coords[1];
         }
         this.changeView = function ( page ) {
           $location.path(page);
@@ -26,10 +30,10 @@ angular
     })
     .factory('NavService',function(){
       return [
-        ['Portfolio','portfolio'],
-        ['Blog', 'blog'],
-        ['Snippets','snippets'],
-        ['About', '']
+        ['Portfolio','portfolio',[70,42]],
+        ['Blog', 'blog',[85,42]],
+        ['Snippets','snippets',[70,42]],
+        ['About', '',[80.5,42]]
       ];
     })
     .directive('ngViewbox', function() {
