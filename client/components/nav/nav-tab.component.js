@@ -5,12 +5,16 @@ angular
       controllerAs:'tab',
       controller: function ( $attrs, $location ) {
         this.$onInit = function() {
-          this.width = 232.5;
+          this.viewWidth = 66.5;
+          this.viewHeight = 232.5;
           //less
-          this.height = 64;
-          this.heightShadow = 66.5;
+          this.widthShadow = 232.5;
+          this.width = 230;
           //less
-          this.widthShadow = 230;
+          this.height = 66.5;
+          
+          this.heightShadow = 64;
+
 
         }
         this.$postLink = function() {

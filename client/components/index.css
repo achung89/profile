@@ -1,15 +1,14 @@
 img {
-  width:100%;
+  width:20%;
   height:auto;
-  clip-path: url(#clipping);
+  /*clip-path: url(#clipping);*/
 }
 #center-group {
-  display: flex;
-  justify-content: center;
+
 }
 
 body {
-  background-color: hsl(207, 84%, 45%);
+  background-color: grey;
 }
 
 @media screen and (max-width:960px) {

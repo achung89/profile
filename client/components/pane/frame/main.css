@@ -1,13 +1,15 @@
 /*div[ng-view] {
     width:75%;
 }*/
-
+/*content dimensions */
 .svg-frame {
-    width:699.98px;
-    height:1000px;
+    margin:10px;
+    height:800px;
+    width:80%;
+    float:right;
 }
 #svg-inner-frame {
-    height: 1vh;
+    width: 80%;
 }
 /*#img-defs {
 

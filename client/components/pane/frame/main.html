@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="svg-frame" >
   <svg id="svg-inner-frame" ng-viewbox="0 0 {{frame.viewHeight}} {{frame.viewWidth}}" preserveAspectRatio="none">
-    <defs id='defs'>
+    <defs id="defs">
       <style title="frame-stylesheet">
         .cls-1-frame {
-          fill: #d6d6d6;
+          fill: darkgrey;
         }
         
         .cls-2-frame {
-          fill: white;
+          fill: lightgrey;
         }
         
         .cls-3-frame {
@@ -23,26 +23,27 @@
           margin-top:2em;
           overflow-y:scroll;
         }
-::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
-}
-::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0,0,0,.5);
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
-      </style>
+        ::-webkit-scrollbar {
+            -webkit-appearance: none;
+            width: 7px;
+        }
+        ::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: rgba(0,0,0,.5);
+            -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+        }
+              </style>
     </defs>
     <title>Asset 4</title>
 
     <g id="Layer_2" data-name="Layer 2">
       <g id="Layer_2-2" data-name="Layer 2">
         <g id="Layer_7" data-name="Layer 7">
-          <polyline class="cls-1-frame" ng-points="{{frame.width}} {{frame.height}} {{frame.heightMargin}} {{frame.height}} {{frame.greyleftMargin}} 0 {{frame.width}} 0" />
+          <polyline class="cls-1-frame" ng-points="{{frame.widthShadow}} {{frame.height}} {{frame.greyleftMargin}} {{frame.height}} {{frame.greyleftMargin}} {{frame.greyTop}} {{frame.widthShadow}} {{frame.greyTop}}" />
+              
         </g>
 
-          <polyline class="cls-2-frame" ng-points="{{frame.widthShadow}} {{frame.heightShadow}} 1 {{frame.heightShadow}} 1 {{frame.heightMargin}} {{frame.widthShadow}} {{frame.heightMargin}}" />
+          <polyline class="cls-2-frame" ng-points="{{frame.width}} {{frame.heightShadow}} {{frame.whiteLeft}} {{frame.heightShadow}} {{frame.whiteLeft}} {{frame.heightMargin}} {{frame.width}} {{frame.heightMargin}}" />
     
         <!--<g id="Layer_8" data-name="Layer 8">
           
