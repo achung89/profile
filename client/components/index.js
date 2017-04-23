@@ -8,7 +8,7 @@ angular.module('banner',[]);
 
 
 
-window.addEventListener('resize', function(event) {
+window.addEventListener('resize', function() {
   //svgs text don't respond to window resize
   var mainContent = document.getElementsByClassName('cls-3-frame')[0];
   var svg = document.getElementsByClassName('svg-frame')[0];

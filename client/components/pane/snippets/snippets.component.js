@@ -3,30 +3,36 @@ angular
 
     .component('snippetsPane', {
       controllerAs: 'snippetsPane',
-      template:`<div class="snippets-pane">
-                  <div ng-repeat="(key,val) in snippetsPane.snippets">
-                    <snippet id={{key}}></snippet>
-                  </div>
-                </div>`,
+      templateUrl:'pane/snippets/snippets.html',
       controller: function ( Snippets ) {
         this.snippets = Snippets;
+        this.$postLink = function () {
+          var frameContent = document.getElementsByClassName('parent-content')[0];
+          var frameDimens = document.getElementById('svg-inner-frame').getBoundingClientRect();
+          console.log(frameDimens);
+          frameContent.style.height = frameDimens.height - 100 + "px";
+          frameContent.style.width = frameDimens.width - 70 + "px";
+        }
       }
     })
 
     .component('snippet', {
       controllerAs: 'snippet',
-      template:`<div>
+      template:`<div id="snippet{{snippet.index}}">
+                  <br>
+                  <br>
                   <h3 class = "snippet-description">{{snippet.description}}</h3>
                   <a class="snippet-link" href="{{snippet.link}}">source</a>
                   <code class="code-snippet">{{snippet.code}}</code>
                 </div><br>`,
       controller: function ( Snippets, $attrs ) {
-        this.$postLink = function() {
-          var index = $attrs.id;
+        this.$postLink = ()=>{
+          this.index = $attrs.id;
 
-          for ( let key in Snippets[index] ) {
-            this[key] = Snippets[index][key];
-          }
+          for ( let key in Snippets[this.index] ) {
+            this[key] = Snippets[this.index][key];
+          }  
+
         }
       }
     })

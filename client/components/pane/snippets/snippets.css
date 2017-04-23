@@ -2,3 +2,10 @@ code {
   display:block;
   white-space:pre-wrap;
 }
+/*last element biggest for scroll*/
+#snippetisNode {
+  height:20em;
+}
+.code-snippet {
+  font-size: .5em;
+}

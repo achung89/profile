@@ -4,13 +4,13 @@ angular
       controllerAs: 'projPane',
       templateUrl:'pane/projects/projects.html',
       controller: function( Projects ) {
-        this.width = 232.5;
-        //less
-        this.height = 64;
-        this.heightShadow = 66.5;
-        //less
-        this.widthShadow = 230;
-        this.heightMargin = 10;
+        // this.width = 232.5;
+        // //less
+        // this.height = 64;
+        // this.heightShadow = 66.5;
+        // //less
+        // this.widthShadow = 230;
+        // this.heightMargin = 10;
         this.projects = Projects;
       }
     })
@@ -19,6 +19,7 @@ angular
         parent:'^projectsPane'
       },
       template: `<div class="project">
+                  <br>
                    <div class="project-header">
                      <h1 class="project-name">{{project.name}}</h1>
                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -36,30 +37,14 @@ angular
       controllerAs:'project',
       controller: function($attrs) {
         this.$postLink = function() {
-          console.log(this.parent.projects)
-          console.log($attrs.id, this.parent.projects[$attrs.id]);
+
           ['name','link','description','contributions'].forEach( ( key ) => {
             this[key] = this.parent.projects[+$attrs.id][key];
           })
         }  
       }
     })
-    .directive('ngViewbox', function() {
-        return {
-          link: function(scope, elem, attrs) {
-            attrs.$observe('ngViewbox', function(x) {
-                elem.attr('viewBox', x);
-            });
-          }
-        }
-    })
-    .directive('ngPoints', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngPoints', function(y) {
-                elem.attr('points', y);
-            });
-        };
-    })
+
     .factory('Projects', function(){
       return [
           {
@@ -121,4 +106,20 @@ angular
             description:'Fitness logging application'
           }
         ]
+    })
+    .directive('ngViewbox', function() {
+        return {
+          link: function(scope, elem, attrs) {
+            attrs.$observe('ngViewbox', function(x) {
+                elem.attr('viewBox', x);
+            });
+          }
+        }
+    })
+    .directive('ngPoints', function() {
+        return function(scope, elem, attrs) {
+            attrs.$observe('ngPoints', function(y) {
+                elem.attr('points', y);
+            });
+        };
     })

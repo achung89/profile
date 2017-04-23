@@ -4,7 +4,7 @@ angular
       transclude:true,
       controllerAs:'frame',
       templateUrl:'pane/frame/main.html',
-      controller: function ( $element, $scope, scrollElement, isBottom, scrollTimeout, varDiff ) {
+      controller: function ( $element, scrollElement, scrollTimeout, varDiff ) {
         console.log($element);
         let timer = null,
             view = 0,
@@ -102,16 +102,25 @@ angular
           frameContent.style.height = frameDimens.height - 100 + "px";
           frameContent.style.width = frameDimens.width -70 + "px";
         }
+        this.$postLink = () => {
+          // setTimeout(function() {
+          //   var frameContent = document.getElementsByClassName('parent-content')[0];
+          //   var frameDimens = document.getElementById('svg-inner-frame').getBoundingClientRect();
+          //   frameContent.style.height = frameDimens.height - 100 + "px";
+          //   frameContent.style.width = frameDimens.width -70 + "px";
+          //   console.log('hihi')
+          // },0);
+        }
       }
     })
-    .factory('isBottom', function( varDiff ) {
+    // .factory('isBottom', function( varDiff ) {
       
-      return function(content) {
-        var innerHeight = parseInt(getComputedStyle(content).getPropertyValue('height'));
-        console.log(content.scrollTop, innerHeight, content.scrollHeight,varDiff('bottomFn', content.scrollTop, innerHeight, content.scrollHeight));
-        return content.scrollTop + innerHeight >= content.scrollHeight-50;
-      }
-    })
+    //   return function(content) {
+    //     var innerHeight = parseInt(getComputedStyle(content).getPropertyValue('height'));
+    //     console.log(content.scrollTop, innerHeight, content.scrollHeight,varDiff('bottomFn', content.scrollTop, innerHeight, content.scrollHeight));
+    //     return content.scrollTop + innerHeight >= content.scrollHeight-50;
+    //   }
+    // })
     .factory('varDiff', function() {
       var obj = {};
       return function varDiff(label, ...args) {
