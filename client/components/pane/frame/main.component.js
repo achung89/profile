@@ -4,58 +4,71 @@ angular
       transclude:true,
       controllerAs:'frame',
       templateUrl:'pane/frame/main.html',
-      controller: function ( $element, $scope, scrollElement ) {
+      controller: function ( $element, $scope, scrollElement, isBottom, scrollTimeout, varDiff ) {
         console.log($element);
         let timer = null,
-            view = 1,
+            view = 0,
             polyline, 
             polyframe, 
             content = $element[0].querySelector('.parent-content'),
-            contentChildren;
+            contentChildren,
+            offsetAdjust = 40;
         console.log(content);
         // element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element.
         content.addEventListener("wheel", (e) => { 
+            console.log('begin');
+            clearTimeout(scrollTimeout.fn); 
             e.preventDefault();
             contentChildren = content.firstChild.firstChild;
 
+            //scroll up
             if (e.wheelDelta >= 0) {
+              console.log('up')
               clearTimeout(timer);
               polyline.stop();
               polyframe.stop();
-              // polyframe.animate(100,'>').transform({scaleY:.95});
-              // polyline.animate(100,'>').transform({scaleX:.95, scaleY:1.05});
-              polyline.animate(100,'>').move(0,21);
-              if ( view <= 0 ) {
-                view = 1; 
-              }
-              console.log(view,contentChildren.children[view] );
-              scrollElement(content,contentChildren.children[view].offsetTop);
+
+              polyline.animate(150).move(0,21);
+              
               view--;
+              if ( view < 0 ) {
+                view = 0; 
+              } else {
+                let offsetNext = contentChildren.children[view].offsetTop;
+                console.log(content.scrollTop, view, offsetNext, varDiff('up', content.scrollTop, view, offsetNext));
+                scrollElement(content,offsetNext - offsetAdjust);
+              }
+              
+              
               console.log(view);
 
-
+              //scroll down
             } else {
+              console.log('down');
               clearTimeout(timer);
               polyline.stop();
               polyframe.stop();
-              // polyframe.animate(100,'>').transform({scaleY:.95});
-              // polyline.animate(100,'>').transform({scaleX:.95, scaleY:1.05});
-              polyline.animate(100,'>').move(0,5);
-              if ( view >= contentChildren.children.length-1 ) {
-                view = contentChildren.children.length-2; 
-              }
-              console.log(view,contentChildren.children[view], contentChildren.children );
-              console.log(view);
-              scrollElement(content,contentChildren.children[view].offsetTop);
-              view++;   
-   
 
-            }
+              polyline.animate(150).move(0,5);
+              // console.log(content.scrollTop + innerHeight, content.scrollHeight-250)
+
+                console.log(content.scrollTop, view,contentChildren.children[view].offsetTop - offsetAdjust);
+                view++;
+                if ( view >= contentChildren.children.length ) {
+                  view = contentChildren.children.length-1; 
+                } else {
+                  let offsetNext = contentChildren.children[view].offsetTop;
+                  console.log(content.scrollTop, view, offsetNext, varDiff('down', content.scrollTop, view, offsetNext));
+                  scrollElement(content, offsetNext - offsetAdjust);
+                }
+              }
+            
             timer = setTimeout(()=>{
               // polyframe.animate(200).transform({scaleY:1});
               // polyline.animate(200).transform({scaleX:1, scaleY:1});
               polyline.animate(300).move(0,13);
-            }, 200);  
+            }, 200); 
+ 
         }, false);
         this.$onInit = () => {
           polyline = SVG.select('polyline.cls-1-frame');
@@ -91,17 +104,56 @@ angular
         }
       }
     })
-    .factory("scrollElement", function(){
-      return function scrollIntoView (element, pos) {
-        console.log(pos)
+    .factory('isBottom', function( varDiff ) {
+      
+      return function(content) {
+        var innerHeight = parseInt(getComputedStyle(content).getPropertyValue('height'));
+        console.log(content.scrollTop, innerHeight, content.scrollHeight,varDiff('bottomFn', content.scrollTop, innerHeight, content.scrollHeight));
+        return content.scrollTop + innerHeight >= content.scrollHeight-50;
+      }
+    })
+    .factory('varDiff', function() {
+      var obj = {};
+      return function varDiff(label, ...args) {
+        var diffObj = {};
+        args.forEach( (val, index)=> {
+          if ( obj[label] && obj[label][index] ) {
+            if ( !(obj[label][index] === val) ) {
+              diffObj[index] = {before: obj[label][index], after:val};
+              obj[label][index] = val;
+              diffObj['maaanaaaaame'] = label;
+            }
+          } else {
+            obj[label] ? obj[label][index] = val : obj[label] = {};
+          }
+        })
+        
+        return ( Object.keys(obj).length === 0 ) ? ("nodiff:"+label) : diffObj;
+      }
+    })
+    .factory("scrollTimeout", function() {
+      return {'fn':null}; 
+    })
+    .factory("scrollElement", function(varDiff, scrollTimeout) {
+      var count = 0; 
+      return function scrollIntoView (element, position) {
+          if( count > 25 ) {
+            count = 0; 
+            return;
+          }
           var y = element.scrollTop;
-          y += Math.round( ( pos - y ) * 0.3 );;
-          if ( Math.abs(y-pos) <= 2 ) {
-              element.scrollTop = pos;
+          y += Math.round( ( position - y ) * 0.4 );
+          if ( Math.abs(y-position) <= 5 ) {
+              count = 0; 
+              console.log(varDiff("scrollEnd", element.scrollTop));
+              element.scrollTop = position;
               return;
           }
           element.scrollTop = y;
-          setTimeout(scrollIntoView, 40, element, pos);   
+          count++;
+          scrollTimeout.fn = setTimeout(function() {
+            scrollIntoView(element, position);
+          }, 40);
       }
     })
     .directive('ngViewbox', function() {
