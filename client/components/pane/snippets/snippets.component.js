@@ -7,11 +7,11 @@ angular
       controller: function ( Snippets ) {
         this.snippets = Snippets;
         this.$postLink = function () {
-          var frameContent = document.getElementsByClassName('parent-content')[0];
-          var frameDimens = document.getElementById('svg-inner-frame').getBoundingClientRect();
-          console.log(frameDimens);
-          frameContent.style.height = frameDimens.height - 100 + "px";
-          frameContent.style.width = frameDimens.width - 70 + "px";
+          // var frameContent = document.getElementsByClassName('parent-content')[0];
+          // var frameDimens = document.getElementById('svg-inner-frame').getBoundingClientRect();
+          // console.log(frameDimens);
+          // frameContent.style.height = frameDimens.height - 100 + "px";
+          // frameContent.style.width = frameDimens.width - 70 + "px";
         }
       }
     })
@@ -20,9 +20,15 @@ angular
       controllerAs: 'snippet',
       template:`<div id="snippet{{snippet.index}}">
                   <br>
+                  <h3 style="display:inline;" class = "snippet-description">
+                    {{snippet.description}}
+                  </h3>  
+                  &nbsp;	&nbsp;	&nbsp;
+                  <a class="snippet-link" href="{{snippet.link}}">
+                    source
+                  </a>
                   <br>
-                  <h3 class = "snippet-description">{{snippet.description}}</h3>
-                  <a class="snippet-link" href="{{snippet.link}}">source</a>
+                  <br>
                   <code class="code-snippet">{{snippet.code}}</code>
                 </div><br>`,
       controller: function ( Snippets, $attrs ) {
@@ -63,7 +69,7 @@ angular
           },
 
           'executingJavascriptString': {
-            description: "Evaluate stringified code without using 'eval'",
+            description: "Evaluate stringified code without 'eval'",
             link: 'http://stackoverflow.com/questions/2592092/executing-script-elements-inserted-with-innerhtml',
             code: tag`function evalScript(javascriptString) {
                         var head = document.getElementsByTagName("head")[0] ||
@@ -83,7 +89,7 @@ angular
           },
 
           'fnLineNumber': {
-            description: 'Get filename and line number where running function was invoked',
+            description: 'Get filename and line number where function was invoked',
             link:'http://stackoverflow.com/questions/1340872/how-to-get-javascript-caller-function-line-number-how-to-get-javascript-caller',
             code: tag`function getErrorObject() {
                         try { throw Error('') } catch(err) { return err; }

@@ -44,7 +44,14 @@ angular
         }  
       }
     })
-
+    .component('modal', {
+      controllerAs: 'modal',
+      template: `<a href = "{{modal.link}}">
+                  <div>
+                    <img
+                  </div>
+                </a>`
+    })
     .factory('Projects', function(){
       return [
           {

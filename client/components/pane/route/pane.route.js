@@ -3,16 +3,16 @@ angular.module('pane',['ngRoute'])
     $locationProvider.hashPrefix('');
     $routeProvider
       .when('/portfolio', {
-        template: '<main-frame><projects-pane></projects-pane></main-frame>'
+        template: '<main-frame scroll="true" id="portfolio-main"><projects-pane></projects-pane></main-frame>'
       })
       .when('/blog', {
-        template: '<main-frame><blogs-pane></blogs-pane></main-frame>'
+        template: '<main-frame scroll="false" id="blog-main"><blogs-pane></blogs-pane></main-frame>'
       })
        .when('/snippets',{
-        template: '<main-frame><snippets-pane></snippets-pane></main-frame>'
+        template: '<main-frame scroll="true" id="snippets-main"><snippets-pane></snippets-pane></main-frame>'
       })     
       .when('/', {
-        template: '<main-frame><about-me></about-me></main-frame>'
+        template: '<main-frame scroll="false" id="about-main"><about-me></about-me></main-frame>'
       })
   })
     

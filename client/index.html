@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  
+
   <script src="bower_components/angular/angular.js"></script>
   <script src="node_modules/angular-route/angular-route.js"></script>
   <script src="node_modules/svg.js/dist/svg.min.js"></script>
@@ -52,10 +52,14 @@
             </clipPath>
           </defs>
         </svg>
-          <img src="files/pic.png"/>
-      <nav-tab  class="tabs" path="{{tabData[1]}}" page-name="{{tabData[0]}}" coords="{{tabData[2]}}" ng-repeat="tabData in parent.tabs" >
+          <!--<img src="files/pic.png"/>-->
+      <nav-tab  class="tabs" 
+                path="{{tabData[1]}}" 
+                page-name="{{tabData[0]}}" 
+                coords="{{tabData[2]}}" 
+                ng-repeat="tabData in parent.tabs" >
       </nav-tab>
-
+      <div>{{parent.page.$}}</div>
     </div>
 
     <div ng-view></div>

@@ -1,4 +1,4 @@
-<svg ng-click="tab.changeView(tab.path)" xmlns="http://www.w3.org/2000/svg" class="svg-tab" ng-viewbox="0 0 {{tab.viewHeight}} {{tab.viewWidth}}">
+<svg ng-click="tab.changeView(tab.path, tab.pageName)" xmlns="http://www.w3.org/2000/svg" class="svg-tab" ng-viewbox="0 0 {{tab.viewHeight}} {{tab.viewWidth}}">
   <defs>
     <style>
       .cls-1 {
@@ -20,9 +20,9 @@
   <g id="Layer_2" data-name="Layer 2">
     <g id="Layer_2-2" data-name="Layer 2">
       <g id="Layer_7" data-name="Layer 7">
-        <polyline class="cls-1" ng-points="{{tab.width}} {{tab.height}} 2.5 {{tab.height}} 2.5 0 {{tab.width}} 0" />
+        <polyline class="cls-1" ng-points="{{tab.width}} {{tab.height}} {{tab.top}} {{tab.height}} {{tab.top}} {{tab.left}} {{tab.width}} {{tab.left}}" />
       </g>
-      <polyline class="cls-2" ng-points="{{tab.widthShadow}} {{tab.heightShadow}} 0 {{tab.heightShadow}} 0 2.5 {{tab.widthShadow}} 2.5" />
+      <polyline class="cls-2" ng-points="{{tab.widthShadow}} {{tab.heightShadow}} {{tab.greyTop}} {{tab.heightShadow}} {{tab.greyTop}} {{tab.greyLeft}} {{tab.widthShadow}} {{tab.greyLeft}}" />
       <g id="Layer_8" data-name="Layer 8">
         <text class="cls-3" transform="translate({{tab.nameX}} {{tab.nameY}})">{{tab.pageName}}</text>
       </g>

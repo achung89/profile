@@ -4,157 +4,95 @@ angular
       transclude:true,
       controllerAs:'frame',
       templateUrl:'pane/frame/main.html',
-      controller: function ( $element, scrollElement, scrollTimeout, varDiff ) {
-        console.log($element);
-        let timer = null,
-            view = 0,
-            polyline, 
-            polyframe, 
-            content = $element[0].querySelector('.parent-content'),
-            contentChildren,
-            offsetAdjust = 40;
-        console.log(content);
-        // element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element.
-        content.addEventListener("wheel", (e) => { 
-            console.log('begin');
-            clearTimeout(scrollTimeout.fn); 
-            e.preventDefault();
-            contentChildren = content.firstChild.firstChild;
-
-            //scroll up
-            if (e.wheelDelta >= 0) {
-              console.log('up')
-              clearTimeout(timer);
-              polyline.stop();
-              polyframe.stop();
-
-              polyline.animate(150).move(0,21);
-              
-              view--;
-              if ( view < 0 ) {
-                view = 0; 
-              } else {
-                let offsetNext = contentChildren.children[view].offsetTop;
-                console.log(content.scrollTop, view, offsetNext, varDiff('up', content.scrollTop, view, offsetNext));
-                scrollElement(content,offsetNext - offsetAdjust);
-              }
-              
-              
-              console.log(view);
-
-              //scroll down
-            } else {
-              console.log('down');
-              clearTimeout(timer);
-              polyline.stop();
-              polyframe.stop();
-
-              polyline.animate(150).move(0,5);
-              // console.log(content.scrollTop + innerHeight, content.scrollHeight-250)
-
-                console.log(content.scrollTop, view,contentChildren.children[view].offsetTop - offsetAdjust);
-                view++;
-                if ( view >= contentChildren.children.length ) {
-                  view = contentChildren.children.length-1; 
-                } else {
-                  let offsetNext = contentChildren.children[view].offsetTop;
-                  console.log(content.scrollTop, view, offsetNext, varDiff('down', content.scrollTop, view, offsetNext));
-                  scrollElement(content, offsetNext - offsetAdjust);
-                }
-              }
-            
-            timer = setTimeout(()=>{
-              // polyframe.animate(200).transform({scaleY:1});
-              // polyline.animate(200).transform({scaleX:1, scaleY:1});
-              polyline.animate(300).move(0,13);
-            }, 200); 
- 
-        }, false);
-        this.$onInit = () => {
-          polyline = SVG.select('polyline.cls-1-frame');
-          polyframe = SVG.select('polyline.cls-2-frame');
-          console.log(content.innerHTML);
-          
-        // set foreignObjects this for site content to height of svg panel
-
-          this.viewWidth = 200;
-          this.viewHeight = 215;
-          //less
-          this.width = 199;
-          this.widthShadow = 202;
-          //less
-          this.height = 155;
-          this.heightShadow = 157;
- 
-          this.heightMargin = 10;
-          this.greyleftMargin = 0;     
-
-          this.whiteLeft = 3;
-
-          this.greyTop = 13;
-
-
+      controller: function ( $element, $scope, $attrs, setContentDimensions, scrollListener, init, view, setFirstDivToTop ) {    
+        this.$onInit = init.bind(this);
+        if($attrs.scroll === "true") {
+          let content = $element[0].querySelector('.parent-content');
+          content.addEventListener("wheel", scrollListener.bind(content, $element), false);
         }
-
-        this.$doCheck = function() {
-          var frameContent = document.getElementsByClassName('parent-content')[0];
-          var frameDimens = document.getElementById('svg-inner-frame').getBoundingClientRect();
-          frameContent.style.height = frameDimens.height - 100 + "px";
-          frameContent.style.width = frameDimens.width -70 + "px";
-        }
-        this.$postLink = () => {
-          // setTimeout(function() {
-          //   var frameContent = document.getElementsByClassName('parent-content')[0];
-          //   var frameDimens = document.getElementById('svg-inner-frame').getBoundingClientRect();
-          //   frameContent.style.height = frameDimens.height - 100 + "px";
-          //   frameContent.style.width = frameDimens.width -70 + "px";
-          //   console.log('hihi')
-          // },0);
-        }
+        this.$doCheck = setContentDimensions;
+        $scope.$on('$locationChangeStart', setFirstDivToTop );
       }
     })
-    // .factory('isBottom', function( varDiff ) {
-      
-    //   return function(content) {
-    //     var innerHeight = parseInt(getComputedStyle(content).getPropertyValue('height'));
-    //     console.log(content.scrollTop, innerHeight, content.scrollHeight,varDiff('bottomFn', content.scrollTop, innerHeight, content.scrollHeight));
-    //     return content.scrollTop + innerHeight >= content.scrollHeight-50;
-    //   }
-    // })
-    .factory('varDiff', function() {
-      var obj = {};
-      return function varDiff(label, ...args) {
-        var diffObj = {};
-        args.forEach( (val, index)=> {
-          if ( obj[label] && obj[label][index] ) {
-            if ( !(obj[label][index] === val) ) {
-              diffObj[index] = {before: obj[label][index], after:val};
-              obj[label][index] = val;
-              diffObj['maaanaaaaame'] = label;
-            }
-          } else {
-            obj[label] ? obj[label][index] = val : obj[label] = {};
-          }
-        })
+    .factory('init', function() {
+      return function() {
+        //viewBox
+        this.viewWidth = 200;
+        this.viewHeight = 215;
+
+        //lengths
+        //less
+        this.width = 199;
+        this.widthShadow = 202;
         
-        return ( Object.keys(obj).length === 0 ) ? ("nodiff:"+label) : diffObj;
+        //heights
+        //less
+        this.height = 155;
+        this.heightShadow = 157;
+
+        //margins
+        this.heightMargin = 10;
+        this.greyleftMargin = 0;     
+        this.whiteLeft = 3;
+        this.greyTop = 13;
       }
     })
-    .factory("scrollTimeout", function() {
-      return {'fn':null}; 
+    .factory('scrollListener', function(scrollTimeout,  resetBackPane, scrollElement, backPane, animateBackPane, reset, view) {
+
+      let contentChildren,
+         offsetAdjust = 40,
+         offsetNext;
+
+      return function( $element, e) { 
+        e.preventDefault();
+
+        //resets scroll animcation
+        clearTimeout(scrollTimeout.fn); 
+
+        contentChildren = this.firstChild.firstChild;
+
+        if (e.wheelDelta >= 0) {
+          animateBackPane(140, 21);
+          
+          view.index--;
+          if ( view.index < 0 ) {
+            view.index = 0; 
+          } 
+          offsetNext = contentChildren.children[view.index].offsetTop;
+          if (this.scrollTop !== (offsetNext - offsetAdjust)) {
+            scrollElement(this, offsetNext - offsetAdjust);
+          }
+        } else  {
+          animateBackPane(140, 5);
+
+          view.index++;
+          if ( view.index >= contentChildren.children.length ) {
+            view.index = contentChildren.children.length-1; 
+          }
+          offsetNext = contentChildren.children[view.index].offsetTop;
+          if (this.scrollTop !== (offsetNext - offsetAdjust)) {
+            scrollElement(this, offsetNext - offsetAdjust);
+          }
+        }
+        
+        reset.timeout = resetBackPane();
+      }
     })
-    .factory("scrollElement", function(varDiff, scrollTimeout) {
+    .factory('animateBackPane', function animateBackPane ( reset, backPane ) {
+      return function(time, y) {    
+          clearTimeout(reset.timeout);
+          backPane().stop();
+          backPane().animate(time).move(0,y);
+      }
+    })
+
+    .factory("scrollElement", function(scrollTimeout) {
       var count = 0; 
       return function scrollIntoView (element, position) {
-          if( count > 25 ) {
-            count = 0; 
-            return;
-          }
           var y = element.scrollTop;
-          y += Math.round( ( position - y ) * 0.4 );
+          y += Math.round( ( position - y ) * 0.25 );
           if ( Math.abs(y-position) <= 5 ) {
               count = 0; 
-              console.log(varDiff("scrollEnd", element.scrollTop));
               element.scrollTop = position;
               return;
           }
@@ -164,6 +102,40 @@ angular
             scrollIntoView(element, position);
           }, 40);
       }
+    })
+    .factory('resetBackPane', function(backPane) {
+      return function() {
+          return setTimeout(()=>{
+          backPane().animate(300).move(0,13);
+        }, 200); 
+      }
+    })
+    .factory('setContentDimensions', function() {
+      return function setContentDimensions() {
+        var frameContent = document.getElementsByClassName('parent-content')[0];
+        var frameDimens = document.getElementById('svg-inner-frame').getBoundingClientRect();
+        frameContent.style.height = frameDimens.height - 100 + "px";
+        frameContent.style.width = frameDimens.width -70 + "px";
+      }
+    })
+    .factory('setFirstDivToTop', function(view) {
+      return function setFirstDivToTop(event) {
+          view.index = 0;
+        }
+    })
+    .factory('backPane', function backPane() {
+      return function queryBackPane() {
+        return SVG.select('polyline.cls-1-frame');  
+      }
+    })
+    .factory("scrollTimeout", function() {
+      return {'fn':null}; 
+    })
+    .factory('view', function view(){
+      return {index:0};
+    })
+    .factory('reset', function reset() {
+      return { timeout:null };
     })
     .directive('ngViewbox', function() {
         return {
