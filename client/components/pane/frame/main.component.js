@@ -49,7 +49,7 @@ angular
         //resets scroll animcation
         clearTimeout(scrollTimeout.fn); 
 
-        contentChildren = this.firstChild.firstChild;
+        contentChildren = this.firstChild.firstChild.children;
 
         if (e.wheelDelta >= 0) {
           animateBackPane(140, 21);
@@ -58,24 +58,39 @@ angular
           if ( view.index < 0 ) {
             view.index = 0; 
           } 
-          offsetNext = contentChildren.children[view.index].offsetTop;
-          if (this.scrollTop !== (offsetNext - offsetAdjust)) {
-            scrollElement(this, offsetNext - offsetAdjust);
-          }
+          
+          offsetNext = contentChildren[view.index].offsetTop;
+          scrollElement(this, offsetNext - offsetAdjust);
         } else  {
           animateBackPane(140, 5);
 
           view.index++;
-          if ( view.index >= contentChildren.children.length ) {
-            view.index = contentChildren.children.length-1; 
+          if ( view.index >= contentChildren.length ) {
+            view.index = contentChildren.length-1; 
           }
-          offsetNext = contentChildren.children[view.index].offsetTop;
-          if (this.scrollTop !== (offsetNext - offsetAdjust)) {
-            scrollElement(this, offsetNext - offsetAdjust);
-          }
+          offsetNext = contentChildren[view.index].offsetTop;
+          scrollElement(this, offsetNext - offsetAdjust);
         }
         
-        reset.timeout = resetBackPane();
+        reset.timeout = resetBackPane(300);
+      }
+    })
+    .factory("scrollElement", function(scrollTimeout) {
+      var count = 0; 
+      return function scrollIntoView (element, position) {
+
+        var y = element.scrollTop;
+        y += Math.round( ( position - y ) * 0.25 );
+        if ( Math.abs(y-position) <= 5 ) {
+            count = 0; 
+            element.scrollTop = position;
+            return;
+        }
+        element.scrollTop = y;
+        count++;
+        scrollTimeout.fn = setTimeout(function() {
+          scrollIntoView(element, position);
+        }, 40);
       }
     })
     .factory('animateBackPane', function animateBackPane ( reset, backPane ) {
@@ -85,28 +100,10 @@ angular
           backPane().animate(time).move(0,y);
       }
     })
-
-    .factory("scrollElement", function(scrollTimeout) {
-      var count = 0; 
-      return function scrollIntoView (element, position) {
-          var y = element.scrollTop;
-          y += Math.round( ( position - y ) * 0.25 );
-          if ( Math.abs(y-position) <= 5 ) {
-              count = 0; 
-              element.scrollTop = position;
-              return;
-          }
-          element.scrollTop = y;
-          count++;
-          scrollTimeout.fn = setTimeout(function() {
-            scrollIntoView(element, position);
-          }, 40);
-      }
-    })
     .factory('resetBackPane', function(backPane) {
-      return function() {
+      return function(time) {
           return setTimeout(()=>{
-          backPane().animate(300).move(0,13);
+          backPane().animate(time).move(0,13);
         }, 200); 
       }
     })

@@ -1,28 +1,24 @@
-img {
+/*img {
   width:20%;
   height:auto;
-  /*clip-path: url(#clipping);*/
-}
-#center-group {
-
-}
+  /*clip-path: url(#clipping);}*/
 
 body {
   background-color: grey;
 }
 
-@media screen and (max-width:960px) {
-    #center-group {
-      display:inline-block;
-    }
-  img {
+@media screen and (max-width: 850px) {
+  #center-group {
+    display:inline-block;
+  }
+  /*img {
     order:-1;
     width:20%;
     height:20%;
     clip-path: url(#clipping);
-  }
-  #img-defs {
+  }*/
+  /*#img-defs {
     order:-1;
     width:20%;
-  }
+  }*/
 }

@@ -4,13 +4,6 @@ angular
       controllerAs: 'projPane',
       templateUrl:'pane/projects/projects.html',
       controller: function( Projects ) {
-        // this.width = 232.5;
-        // //less
-        // this.height = 64;
-        // this.heightShadow = 66.5;
-        // //less
-        // this.widthShadow = 230;
-        // this.heightMargin = 10;
         this.projects = Projects;
       }
     })
@@ -65,8 +58,8 @@ angular
                         'Fast single page application interface (React, Webpack)', 
                        'Responsive web-design (media queries, Bootstrap)', 
                        'Authentication/authorization (Auth0 lock, React router 4)',
-                       'Real time data/UI (PostgreSQL, Sequelize)',
-                       'Robust back-end testing environment (Mocha, Chai)',
+                       'Back-end setup (PostgreSQL, Sequelize)',
+                       'Database testing environment (Mocha, Chai)',
                        'Google Calendar integration',
                        'Deployment setup (Docker)'
             ]
@@ -102,7 +95,7 @@ angular
               ['NPM', 'https://www.npmjs.com/package/assign-es6-class']
             ],
             description:'Library for shallow merging Es6 classes',
-            contributions:[]
+            contributions:['Module loading (Rollup)']
           },
           {
             name: 'KeepFit',

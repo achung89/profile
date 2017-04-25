@@ -5,26 +5,38 @@
 a {
     color:black;
 }
+* {
+    margin:0px;
+    padding:0px;
+    margin-left:0px;
+    padding-left:0px;
+    padding-top:0px;
+    left:0px;
+}
 #nav {
-    display:flex; 
-    height:70px;
+    
+    display:flex;
+    flex-direction:row;
+    width:100vw;
+    background-color: #3d3d3d;
+    align-items: center;
+    justify-content:flex-end;
+   /* text-align:center;*/
 }
 .svg-tab {
-    
-    height:70px;
-    margin-left:5px;
 }
 .tabs {
-
+    /*display:inline;*/
+   width:15%;
+   margin:15px;
 }
 
-@media screen and (max-width:960px) {
+@media screen and (max-width:850px) {
     #nav {
         width:100%;
         flex-direction:row;
     }
     .tabs {
-
         width:20%;
         float:right;
     }

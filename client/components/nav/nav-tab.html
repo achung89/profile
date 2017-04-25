@@ -10,8 +10,8 @@
       }
       
       .cls-3 {
-        font-size: 24px;
-        fill: #666;
+        font-size: 1.25rem;
+        fill: black;
         font-family: MyriadPro-Regular, Myriad Pro;
       }
     </style>
@@ -20,9 +20,9 @@
   <g id="Layer_2" data-name="Layer 2">
     <g id="Layer_2-2" data-name="Layer 2">
       <g id="Layer_7" data-name="Layer 7">
-        <polyline class="cls-1" ng-points="{{tab.width}} {{tab.height}} {{tab.top}} {{tab.height}} {{tab.top}} {{tab.left}} {{tab.width}} {{tab.left}}" />
+        <polyline class="cls-1" ng-points="{{tab.widthShadow}} {{tab.heightShadow}} {{tab.greyLeft}} {{tab.heightShadow}} {{tab.greyLeft}} {{tab.greyTop}} {{tab.widthShadow}} {{tab.greyTop}}" />
       </g>
-      <polyline class="cls-2" ng-points="{{tab.widthShadow}} {{tab.heightShadow}} {{tab.greyTop}} {{tab.heightShadow}} {{tab.greyTop}} {{tab.greyLeft}} {{tab.widthShadow}} {{tab.greyLeft}}" />
+      <polyline class="cls-2" ng-points="{{tab.width}} {{tab.height}} {{tab.left}} {{tab.height}} {{tab.left}} {{tab.top}} {{tab.width}} {{tab.top}}" />
       <g id="Layer_8" data-name="Layer 8">
         <text class="cls-3" transform="translate({{tab.nameX}} {{tab.nameY}})">{{tab.pageName}}</text>
       </g>

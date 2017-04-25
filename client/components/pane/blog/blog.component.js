@@ -10,7 +10,7 @@ angular
         !this.blogPosts.length &&
           $http.get('api/medium').then( ( feed ) => { 
             ({data:{items}} = feed);
-
+            
             var yearsSet = new Set();
             items.forEach ( (blog) => {
               let {created, url, title} = blog;
