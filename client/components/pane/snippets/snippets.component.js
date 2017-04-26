@@ -4,15 +4,8 @@ angular
     .component('snippetsPane', {
       controllerAs: 'snippetsPane',
       templateUrl:'pane/snippets/snippets.html',
-      controller: function ( Snippets ) {
+      controller: function ( Snippets, view ) {
         this.snippets = Snippets;
-        this.$postLink = function () {
-          // var frameContent = document.getElementsByClassName('parent-content')[0];
-          // var frameDimens = document.getElementById('svg-inner-frame').getBoundingClientRect();
-          // console.log(frameDimens);
-          // frameContent.style.height = frameDimens.height - 100 + "px";
-          // frameContent.style.width = frameDimens.width - 70 + "px";
-        }
       }
     })
 

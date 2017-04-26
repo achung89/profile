@@ -3,7 +3,7 @@ angular.module('pane',['ngRoute'])
     $locationProvider.hashPrefix('');
     $routeProvider
       .when('/portfolio', {
-        template: '<main-frame scroll="true" id="portfolio-main"><projects-pane></projects-pane></main-frame><modal></modal>'
+        template: '<main-frame scroll="true" id="portfolio-main"><projects-pane></projects-pane></main-frame>'
       })
       .when('/blog', {
         template: '<main-frame scroll="false" id="blog-main"><blogs-pane></blogs-pane></main-frame>'

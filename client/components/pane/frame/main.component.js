@@ -14,6 +14,18 @@ angular
         $scope.$on('$locationChangeStart', setFirstDivToTop );
       }
     })
+    .component('modal', {
+      controllerAs: 'modal',
+      controller: function(ModalFact) {
+        this.$doCheck = function() {
+          this.content = ModalFact.content;
+          console.log(this.content);
+        }
+      },
+      template: `<div ng-if="modal.content!==null" id="modal">
+                  {{modal.content}}
+                 </div>`
+    })
     .factory('init', function() {
       return function() {
         //viewBox
@@ -52,7 +64,7 @@ angular
         contentChildren = this.firstChild.firstChild.children;
 
         if (e.wheelDelta >= 0) {
-          animateBackPane(140, 21);
+          animateBackPane(190, 21);
           
           view.index--;
           if ( view.index < 0 ) {
@@ -62,7 +74,7 @@ angular
           offsetNext = contentChildren[view.index].offsetTop;
           scrollElement(this, offsetNext - offsetAdjust);
         } else  {
-          animateBackPane(140, 5);
+          animateBackPane(190, 5);
 
           view.index++;
           if ( view.index >= contentChildren.length ) {
@@ -80,8 +92,8 @@ angular
       return function scrollIntoView (element, position) {
 
         var y = element.scrollTop;
-        y += Math.round( ( position - y ) * 0.35 );
-        if ( Math.abs(y-position) <= 5 ) {
+        y += Math.round( ( position - y ) * 0.2 );
+        if ( Math.abs(y-position) <= 3 ) {
             count = 0; 
             element.scrollTop = position;
             return;
@@ -119,6 +131,9 @@ angular
       return function setFirstDivToTop(event) {
           view.index = 0;
         }
+    })
+    .factory('ModalFact', function(){
+      return {content:null};
     })
     .factory('backPane', function backPane() {
       return function queryBackPane() {

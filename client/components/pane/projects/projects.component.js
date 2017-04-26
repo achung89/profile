@@ -3,13 +3,22 @@ angular
     .component('projectsPane', {
       controllerAs: 'projPane',
       templateUrl:'pane/projects/projects.html',
-      controller: function( Projects ) {
+      controller: function( Projects, ModalFact, view ) {
         this.projects = Projects;
       }
     })
     .component('project',{
       require: {
         parent:'^projectsPane'
+      },
+      controllerAs:'project',
+      controller: function($attrs) {
+        this.$postLink = function() {
+
+          ['name','link','description','contributions'].forEach( ( key ) => {
+            this[key] = this.parent.projects[+$attrs.id][key];
+          })
+        }  
       },
       template: `<div class="project">
                   <br>
@@ -22,35 +31,14 @@ angular
                    </div>
                    <p>
                     <div class="project-description">{{project.description}}</div>
+                    <br />
                     <ol class="project-contributions">
                       <li ng-repeat="contrib in project.contributions">{{contrib}}</li>
                     </ol>
                    </p>
-                 </div>`,
-      controllerAs:'project',
-      controller: function($attrs) {
-        this.$postLink = function() {
+                 </div>`
+    })
 
-          ['name','link','description','contributions'].forEach( ( key ) => {
-            this[key] = this.parent.projects[+$attrs.id][key];
-          })
-        }  
-      }
-    })
-    .component('modal', {
-      controllerAs: 'modal',
-      controller: function() {
-        this.link;
-        this.src;
-      },
-      template: `<div id="modal">
-                  <a href = "{{modal.link}}">
-                    <div>
-                      <img = "{{modal.src}}" />
-                    </div>
-                  </a>
-                </div>`
-    })
     .factory('Projects', function(){
       return [
           {
