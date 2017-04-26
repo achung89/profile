@@ -3,28 +3,30 @@
     <defs id="defs">
       <style title="frame-stylesheet">
         .cls-1-frame {
-          fill: darkgrey;
+          fill: rgba(75, 73, 73, 0.13);
         }
-        
+
         .cls-2-frame {
-          fill: lightgrey;
+          fill: rgba(140, 193, 213, 0.3);
+          stroke-width:.02rem;
         }
         
         .cls-3-frame {
-          font-size: 24px;
-          fill: black;
-          font-family: MyriadPro-Regular, Myriad Pro;
+          font-size: 1em;
+          fill: #37383d;
+          color: black;
+          font-family: 'Lato', sans-serif;
           overflow: scroll;
           height:100%;
           width:100%;
         }
         .parent-content {
           margin-left:2em;
-          margin-top:2em;
+          margin-top:3em;
           overflow-y:scroll;
         }
         .parent-content{
-          padding:10px;
+          padding:3%;
         }
         ::-webkit-scrollbar {
             -webkit-appearance: none;
@@ -46,7 +48,7 @@
               
         </g>
 
-          <polyline class="cls-2-frame" ng-points="{{frame.width}} {{frame.heightShadow}} {{frame.whiteLeft}} {{frame.heightShadow}} {{frame.whiteLeft}} {{frame.heightMargin}} {{frame.width}} {{frame.heightMargin}}" />
+          <polyline class="cls-2-frame" ng-points="{{frame.width}} {{frame.heightShadow}} {{frame.whiteLeft}} {{frame.heightShadow}} {{frame.whiteLeft}} {{frame.heightMargin}} {{frame.width}} {{frame.heightMargin}} {{frame.width}} {{frame.heightShadow}}" />
     
         <!--<g id="Layer_8" data-name="Layer 8">
           

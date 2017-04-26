@@ -39,11 +39,17 @@ angular
     })
     .component('modal', {
       controllerAs: 'modal',
-      template: `<a href = "{{modal.link}}">
-                  <div>
-                    <img
-                  </div>
-                </a>`
+      controller: function() {
+        this.link;
+        this.src;
+      },
+      template: `<div id="modal">
+                  <a href = "{{modal.link}}">
+                    <div>
+                      <img = "{{modal.src}}" />
+                    </div>
+                  </a>
+                </div>`
     })
     .factory('Projects', function(){
       return [
@@ -73,7 +79,7 @@ angular
             contributions: [
                         'Non-blocking synchronous content loading and caching of routes',
                         'Route-test environment (WCT, Mocha, Chai)'
-            ]
+            ],
           },
           {
             name:'Dino Task',

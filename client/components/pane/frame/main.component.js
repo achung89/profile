@@ -17,13 +17,13 @@ angular
     .factory('init', function() {
       return function() {
         //viewBox
-        this.viewWidth = 200;
-        this.viewHeight = 215;
+        this.viewWidth = 201;
+        this.viewHeight = 200;
 
         //lengths
         //less
-        this.width = 199;
-        this.widthShadow = 202;
+        this.width = 197;
+        this.widthShadow = 200;
         
         //heights
         //less
@@ -80,7 +80,7 @@ angular
       return function scrollIntoView (element, position) {
 
         var y = element.scrollTop;
-        y += Math.round( ( position - y ) * 0.25 );
+        y += Math.round( ( position - y ) * 0.35 );
         if ( Math.abs(y-position) <= 5 ) {
             count = 0; 
             element.scrollTop = position;

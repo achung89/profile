@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="bower_components/angular/angular.js"></script>
   <script src="node_modules/angular-route/angular-route.js"></script>
   <script src="node_modules/svg.js/dist/svg.min.js"></script>
@@ -30,7 +30,8 @@
 </head>
 
 <body ng-app="profilePage" style="display:none;">
-
+  <div id="banner"></div>
+    <div class="layer"></div>
     <div id="nav" ng-controller="NavController as parent">
         <!--<svg width="0"; height="0" id="img-defs">
           <defs>
@@ -61,7 +62,7 @@
       </nav-tab>
       <!--<div>{{parent.page.$}}</div>-->
     </div>
-
+    <hr style="margin-left:3%;">
     <div ng-view></div>
 
 </body>
