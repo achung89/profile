@@ -16,14 +16,17 @@ angular
     })
     .component('modal', {
       controllerAs: 'modal',
-      controller: function(ModalFact) {
+      controller: function($scope, ModalFact) {
         this.$doCheck = function() {
-          this.content = ModalFact.content;
-          console.log(this.content);
+          setTimeout(()=>{
+            $scope.$apply(()=>{
+              this.content = ModalFact.content;
+            });
+          });
         }
       },
       template: `<div ng-if="modal.content!==null" id="modal">
-                  {{modal.content}}
+                  <img id="modal-img" alt="modal" src="{{modal.content}}"/>
                  </div>`
     })
     .factory('init', function() {
@@ -49,7 +52,7 @@ angular
         this.greyTop = 13;
       }
     })
-    .factory('scrollListener', function(scrollTimeout,  resetBackPane, scrollElement, backPane, animateBackPane, reset, view) {
+    .factory('scrollListener', function($rootScope, scrollTimeout,  resetBackPane, scrollElement, backPane, animateBackPane, reset, view) {
 
       let contentChildren,
          offsetAdjust = 40,
@@ -64,7 +67,7 @@ angular
         contentChildren = this.firstChild.firstChild.children;
 
         if (e.wheelDelta >= 0) {
-          animateBackPane(190, 21);
+          animateBackPane(190, 18);
           
           view.index--;
           if ( view.index < 0 ) {
@@ -74,7 +77,7 @@ angular
           offsetNext = contentChildren[view.index].offsetTop;
           scrollElement(this, offsetNext - offsetAdjust);
         } else  {
-          animateBackPane(190, 5);
+          animateBackPane(190, 8);
 
           view.index++;
           if ( view.index >= contentChildren.length ) {
@@ -83,7 +86,6 @@ angular
           offsetNext = contentChildren[view.index].offsetTop;
           scrollElement(this, offsetNext - offsetAdjust);
         }
-        
         reset.timeout = resetBackPane(300);
       }
     })

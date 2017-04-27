@@ -1,7 +1,6 @@
 div[ng-view] {
     float:right;
     width:100%;
-    
 }
 
 /*content dimensions */
@@ -11,15 +10,26 @@ div[ng-view] {
 }
 .svg-frame {
     height:100vh;
-    width:80vw;
+    width:60vw;
     margin-left:5%;
 }
+
 #modal {
+  padding:1em;
   display:block;
+  display:flex;
+  text-align:center;
   width:25vw;
-  margin-top:4vw;
+  float:right;
+  margin-top:5vw;
   height:20vw;
+  margin-right:3vw;
+  overflow:hidden;
   background-color:rgba(75, 73, 73, 0.13);
+}
+#modal-img {
+    width:90%;
+    margin:auto;
 }
 /*#svg-inner-frame {
 

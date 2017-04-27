@@ -2,5 +2,8 @@ angular
   .module('pane')
     .component('aboutMe', {
       templateUrl:'pane/about-me/about-me.html',
-      controllerAs:'abtMe'
+      controllerAs:'abtMe',
+      controller: function(ModalFact) {
+        ModalFact.content = null;
+      }
     });

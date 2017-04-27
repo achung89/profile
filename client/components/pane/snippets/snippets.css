@@ -4,7 +4,7 @@ code {
 }
 /*last element biggest for scroll*/
 #snippetisNode {
-  height:20em;
+  height:90vh;
 }
 .code-snippet {
   font-size: .7em;

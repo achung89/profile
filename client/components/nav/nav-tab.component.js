@@ -17,10 +17,10 @@ angular
     })
     .factory('NavService',function(){
       return [
-        [ 'Portfolio', 'portfolio', [39,42] ],
-        [ 'Blog', 'blog', [57,42] ],
-        [ 'Snippets', 'snippets', [39,42] ],
-        [ 'About', '', [47,42] ]
+        [ 'Home', '', [47, 42] ],
+        [ 'Portfolio', 'portfolio', [39, 42] ],
+        [ 'Blog', 'blog', [57, 42] ],
+        [ 'Snippets', 'snippets', [39, 42] ]
       ];
     })
     .factory('navInit', function() {
@@ -51,12 +51,10 @@ angular
           var coords = JSON.parse($attrs.coords);
           this.nameX = coords[0];
           this.nameY = coords[1];
-          console.log(this.clicked);
         }
     })
     .factory('animateTab', function() {
       return function animateTab(x, y, time, e) {
-        console.log(x,y,e)
         // var back = SVG.adopt(this.querySelector('.cls-1'))
         var front = SVG.adopt(this.querySelector('.cls-2'))
         var text = SVG.adopt(this.querySelector('.cls-3'))
@@ -68,7 +66,6 @@ angular
     .factory('changeView', function($location, Current) {
       return function changeView( page, current ) {
           $location.path(page);
-          console.log(current);
           Current.$ = current;
         }
     })
