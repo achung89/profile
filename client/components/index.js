@@ -1,5 +1,5 @@
-angular.module('profilePage', ['nav','pane','banner'])
-// debugging tool, returns any changes to parameters
+angular.module('profilePage', ['nav','pane','ngAnimate'])
+// debugging tool, displays any changes to variables
   .factory('varDiff', function varDiff() {
     var obj = {};
     return function varDiff(label, ...args) {
@@ -32,6 +32,6 @@ window.addEventListener('resize', function() {
   var frameContent = document.getElementsByClassName('parent-content')[0];
   var frameDimens = document.getElementById('svg-inner-frame').getBoundingClientRect();
   frameContent.style.height = frameDimens.height - 100 + "px";
-  frameContent.style.width = frameDimens.width - 70 + "px";
+  frameContent.style.width = frameDimens.width - 80 + "px";
     
 })

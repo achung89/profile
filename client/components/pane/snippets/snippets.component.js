@@ -4,7 +4,8 @@ angular
     .component('snippetsPane', {
       controllerAs: 'snippetsPane',
       templateUrl:'pane/snippets/snippets.html',
-      controller: function ( Snippets, view ) {
+      controller: function ( Snippets, view, ModalFact ) {
+        ModalFact.content = null;
         this.snippets = Snippets;
       }
     })

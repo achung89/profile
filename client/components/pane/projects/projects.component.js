@@ -10,7 +10,6 @@ angular
         //   console.log(old,newVal);
         // })
         this.$doCheck = function() {
-          console.count();
           this.index = view.index;
           ModalFact.content = this.projects[this.index].image || null;
         }
@@ -54,7 +53,7 @@ angular
             name: 'PlanEats',
             link: [
               ['github','https://github.com/daftFunc/planEats'],
-              ['website', 'https://www.planEats.xyz'],
+              ['website', 'http://www.planeats.xyz'],
             ],
             description: 'Meal planning application with a recipe book, automated grocerylist, and cooking instructions for your next meal',
             contributions:[
@@ -99,17 +98,17 @@ angular
               ['NPM', 'https://www.npmjs.com/package/assign-es6-class']
             ],
             description:'Library for shallow merging Es6 classes',
-            contributions:['Module loading (Rollup)']
+            contributions:['Bundling configuration (Rollup, Gulp)']
           },
-          {
-            name: 'KeepFit',
-            link:[
-              ['github','https://github.com/Keep-Fit/Keep-Fit'],
-              ['website','https://keep-fit-app.herokuapp.com']
-            ],
-            description:'Fitness logging application',
-            image:'pane/projects/modal/keep-fit.jpg'
-          }
+          // {
+          //   name: 'KeepFit',
+          //   link:[
+          //     ['github','https://github.com/Keep-Fit/Keep-Fit'],
+          //     ['website','https://keep-fit-app.herokuapp.com']
+          //   ],
+          //   description:'Fitness logging application',
+          //   image:'pane/projects/modal/keep-fit.jpg'
+          // }
         ]
     })
     .directive('ngViewbox', function() {

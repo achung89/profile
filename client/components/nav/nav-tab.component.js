@@ -20,7 +20,8 @@ angular
         [ 'Home', '', [47, 42] ],
         [ 'Portfolio', 'portfolio', [39, 42] ],
         [ 'Blog', 'blog', [57, 42] ],
-        [ 'Snippets', 'snippets', [39, 42] ]
+        // [ 'Snippets', 'snippets', [39, 42] ],
+        [ 'About site', 'aboutsite', [35,42] ]
       ];
     })
     .factory('navInit', function() {
@@ -32,7 +33,7 @@ angular
           this.top = 2.5;
           this.left = 0;
           
-          //less
+          //less 
           this.widthShadow = 147.5;
           this.width = 150;
           //less

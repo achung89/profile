@@ -16,18 +16,29 @@ angular
     })
     .component('modal', {
       controllerAs: 'modal',
-      controller: function($scope, ModalFact) {
+      controller: function( $scope, ModalFact, Current ) {
+        this.content = ModalFact.content;
+        this.page = Current.$;
+        this.shouldSwap = true;
         this.$doCheck = function() {
           setTimeout(()=>{
-            $scope.$apply(()=>{
-              this.content = ModalFact.content;
-            });
+              if( this.content !== ModalFact.content
+                || this.page !== Current.$ ) {
+                          console.count();
+                $scope.$apply( () => {
+                  this.content = ModalFact.content;
+                  this.page = Current.$;
+              })
+            }
           });
         }
       },
-      template: `<div ng-if="modal.content!==null" id="modal">
-                  <img id="modal-img" alt="modal" src="{{modal.content}}"/>
-                 </div>`
+      template: `<div ng-animate-swap="modal.page"
+                      class="swap-animation">
+                  <div ng-if="modal.content!==null" class="animate-if" >
+                  <img id="modal-img" 
+                       ng-src="{{modal.content}}"/>
+                 </div></div>`
     })
     .factory('init', function() {
       return function() {
@@ -86,6 +97,7 @@ angular
           offsetNext = contentChildren[view.index].offsetTop;
           scrollElement(this, offsetNext - offsetAdjust);
         }
+        $rootScope.$digest();
         reset.timeout = resetBackPane(300);
       }
     })
@@ -126,13 +138,16 @@ angular
         var frameContent = document.getElementsByClassName('parent-content')[0];
         var frameDimens = document.getElementById('svg-inner-frame').getBoundingClientRect();
         frameContent.style.height = frameDimens.height - 100 + "px";
-        frameContent.style.width = frameDimens.width -70 + "px";
+        frameContent.style.width = frameDimens.width - 80 + "px";
       }
     })
     .factory('setFirstDivToTop', function(view) {
       return function setFirstDivToTop(event) {
-          view.index = 0;
-        }
+        setTimeout(function() {
+          document.querySelector('.cls-3-frame').setAttribute('style','display:block');
+        },0)
+        view.index = 0;
+      }
     })
     .factory('ModalFact', function(){
       return {content:null};
@@ -152,39 +167,39 @@ angular
       return { timeout:null };
     })
     .directive('ngViewbox', function() {
-        return {
-          link: function(scope, elem, attrs) {
-            attrs.$observe('ngViewbox', function(x) {
-                elem.attr('viewBox', x);
-            });
-          }
+      return {
+        link: function(scope, elem, attrs) {
+          attrs.$observe('ngViewbox', function(x) {
+            elem.attr('viewBox', x);
+          });
         }
+      }
     })
     .directive('ngPoints', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngPoints', function(y) {
-                elem.attr('points', y);
-            });
-        };
+      return function(scope, elem, attrs) {
+        attrs.$observe('ngPoints', function(y) {
+          elem.attr('points', y);
+        });
+      };
     })
     .directive('ngD', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngD', function(y) {
-                elem.attr('d', y);
-            });
-        };
+      return function(scope, elem, attrs) {
+        attrs.$observe('ngD', function(y) {
+          elem.attr('d', y);
+        });
+      };
     })
     .directive('ngWidth', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngWidth', function(y) {
-                elem.attr('width', y);
-            });
-        };
+      return function(scope, elem, attrs) {
+        attrs.$observe('ngWidth', function(y) {
+          elem.attr('width', y);
+        });
+      };
     })
     .directive('ngHeight', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngHeight', function(y) {
-                elem.attr('height', y);
-            });
-        };
+      return function(scope, elem, attrs) {
+        attrs.$observe('ngHeight', function(y) {
+          elem.attr('height', y);
+        });
+      };
     })

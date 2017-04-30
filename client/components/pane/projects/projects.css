@@ -1,17 +1,22 @@
 @font-face {
-    font-family: 'MyriadPro-Regular';
-    src: url('/client/fonts/Myriad Pro Regular.ttf')
+    font-family: 'Roboto';
+    src: url('/client/Roboto_Slab/RobotoSlab-Regular.ttf')
 }
-
 /*.project {
   font-family: 'MyriadPro-Regular';
 }*/
+ol {
+  text-indent: 1vw;
+  list-style-position:inside;
+}
 .project-name {
   display:inline-block;
 }
 .project-links {
   display:inline-block;
 }
-#project4 {
+#project3 {
   height:90vh;
 }
+
+

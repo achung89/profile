@@ -3,7 +3,8 @@ angular
     .component('blogsPane', {
       controllerAs: 'blogs',
       templateUrl:'pane/blog/blogs.html',
-      controller: function ( $http, BlogPosts, Years ) {
+      controller: function ( $http, BlogPosts, Years, ModalFact ) {
+        ModalFact.content = null;
         this.blogPosts = BlogPosts;
         this.years = Years;
         this.description = "Andrew Chung's stories on medium";

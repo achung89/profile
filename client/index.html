@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="node_modules/angular/angular.js"></script>
   <script src="node_modules/angular-route/angular-route.js"></script>
+  <script src="node_modules/angular-animate/angular-animate.js"></script>
   <script src="node_modules/svg.js/dist/svg.min.js"></script>
   <script src="files/index.js"></script>
   <link rel="stylesheet" href="files/normalize.css">
@@ -24,36 +25,17 @@
   <script src="pane/frame/main.component.js"></script>
   <link rel="stylesheet" href="pane/about-me/about-me.css">
   <script src="pane/about-me/about-me.component.js"></script>
+  <script src="pane/about-site/about-site.component.js"></script>
+
 
   <title>Andrew Chung</title>
   
 </head>
 
-<body ng-app="profilePage" style="display:none;">
+<body ng-app="profilePage" style="display:none; overflow:hidden;" scroll="no">
   <div id="banner"></div>
     <div class="layer"></div>
     <div id="nav" ng-controller="NavController as parent">
-        <!--<svg width="0"; height="0" id="img-defs">
-          <defs>
-            <style type="text/css">
-              @media screen and (max-width: 850px) {
-                #img-mask {
-                  rx:50;
-                  ry:60;
-                  cy:50;
-                  cx:50;
-                }
-              }
-            </style>
-          </defs>
-
-          <defs>
-            <clipPath id="clipping">
-              <ellipse id="img-mask" cx="115" cy="110" rx="105" ry="105" />
-            </clipPath>
-          </defs>
-        </svg>-->
-          <!--<img src="files/pic.png"/>-->
       <nav-tab  class="tabs" 
                 path="{{tabData[1]}}" 
                 page-name="{{tabData[0]}}" 
@@ -64,12 +46,16 @@
     </div>
     <hr id="border">
     <div ng-view></div>
-
+    <modal></modal>
 </body>
 
   <script>
     window.addEventListener('load', function() {
       document.body.style = '';
+      setTimeout(function() {
+        document.querySelector('.cls-3-frame').setAttribute('style','display:block');
+      },100)
     })
+
     </script>
 </html>
